@@ -47,15 +47,15 @@ const isPalindrome = (str) => {
     let string = str.toLowerCase().replace(/ /g,'');
     
     if (string.length === 1) {
-        return console.log('true')
+        return true
     }
     if (string[0] !== string[string.length -1]) {
-        return console.log('false')
+        return false
     }
     string = string.slice(0, -1)
     string = string.substring(1)
     if (string.length === 0) {
-        return console.log('true')
+        return true
     }
 
     return isPalindrome(string);
@@ -267,7 +267,76 @@ const bubbleSort = arr => {
 const longestNoRepeat = str => {
     let longestString = '';
     for (let i = 0; i < str.length; i++) {
+        const testString = str.substring(i)
         let string = str[i];
 
+        for (let z = 1; z < testString.length; z++) {
+            if (string.indexOf(testString[z]) !== -1) {
+                break;
+            } else {
+                string = string + testString[z];
+            }
+        }
+
+        if (longestString.length < string.length) {
+            longestString = string;
+        }
     }
+    console.log('final: ' + longestString);
 };
+/*
+    Write a JavaScript function that returns the longest palindrome in a given string.
+*/
+const longestPalindrome = str => {
+    let palindromes = []
+    for (let i = 0; i < str.length; i++) {
+        const testString = str.substring(i);
+        for (let z = 0; z < testString.length; z++) {
+            const string = testString.slice(0, testString.length - z)
+            const array = string.split('').reverse();
+            const reveresedString = array.join('');
+            if (string === reveresedString && string.length > 1) {
+                palindromes.push(string)
+            }
+        }
+    }
+    let longest = palindromes.reduce((prev, curr) => {
+        if (curr.length > prev.length) {
+            return curr;
+        }
+        return prev;
+    }, '');
+    console.log(longest)
+}
+/*
+    Write a JavaScript program to calculate the factorial of a number.
+*/
+getFactorial = num => {
+    if (num === 0) {
+        return 1;
+    }
+    return num * getFactorial(num - 1)
+}
+/*
+    Write a JavaScript program to find the greatest common divisor (gcd) of two positive numbers.
+*/
+const gcd = (a, b) => {
+    if (!b) {  
+        return a;  
+    }  
+  
+    return gcd(b, a % b);  
+};  
+/*
+    Write a JavaScript program to get the integers in range (x, y).
+*/
+const getRange = (x, y) => {
+    if (y - x === 2) {
+        return [x + 1];
+    }
+    let list = getRange(x, y - 1);
+
+    list.push(y - 1);
+    return list;
+};
+console.log(getRange(5, 15));
