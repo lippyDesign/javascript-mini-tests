@@ -339,4 +339,103 @@ const getRange = (x, y) => {
     list.push(y - 1);
     return list;
 };
-console.log(getRange(5, 15));
+
+/*
+    Write three functions that compute the sum of the numbers in a given list using a for-loop, a while-loop, and recursion.
+*/
+
+const sumForLoop = lst => {
+    let total = 0;
+    for (let i = 0; i < lst.length; i++) {
+        total = total + lst[i];
+    }
+    return total;
+}
+const sumWhileLoop = lst => {
+    let total = 0;
+    while (lst.length) {
+        total = total + lst[0];
+        lst.splice(0, 1);
+    }
+    return total;
+}
+const sumRecur = lst => {
+    if (lst.length === 2) return lst[0] + lst[1];
+    const num = lst.splice(0, 1);
+    return num[0] + sumRecur(lst);
+}
+
+/*
+    Write a function that combines two lists by alternatingly taking elements. For example: given the two lists [a, b, c] and [1, 2, 3], the function should return [a, 1, b, 2, c, 3].
+*/
+
+const combineTwoLists = (lst1, lst2) => {
+    let totalList = []
+    let len = 0;
+    if (lst1.length >= len) len = lst1.length;
+    if (lst2.length > len) len = lst2.length;
+    for (let i = 0; i < len; i++) {
+        if (lst1[i]) {
+            totalList.push(lst1[i]);
+        }
+        if (lst2[i]) {
+            totalList.push(lst2[i]);
+        }
+    }
+    return totalList;
+};
+
+/*
+    Write a function that computes the list of the first 100 Fibonacci numbers. By definition, the first two numbers in the Fibonacci sequence are 0 and 1, and each subsequent number is the sum of the previous two.
+    As an example, here are the first 10 Fibonnaci numbers: 0, 1, 1, 2, 3, 5, 8, 13, 21, and 34.
+*/
+
+const fiboNumbers = () => {
+    let arr = [0, 1]
+    while (arr.length < 100) {
+        let a = arr[arr.length - 1];
+        let b = arr[arr.length - 2];
+        arr.push(a + b);
+    }
+    return arr.reduce((prev, curr) => {
+        return prev + curr
+    }, 0);
+}
+/*
+    Write a function that given a list of non negative integers, arranges them such that they form the largest possible number.
+    For example, given [50, 2, 1, 9], the largest formed number is 95021.
+*/
+
+const largestPossNum = lst => {
+    let newList = [];
+    lst.forEach(item => {
+        let str = item.toString();
+        let arr = str.split('');
+        arr.forEach(i => newList.push(i));
+    });
+    newList.sort((a, b) => b - a);
+    return Number(newList.join(''));
+};
+/*
+    Write a program that outputs all possibilities to put + or - or nothing between the numbers 1, 2, ..., 9 (in this order) such that the result is always 100.
+    For example: 1 + 2 + 34 – 5 + 67 – 8 + 9 = 100.
+*/
+
+const getHundredFromOneToNine = () => {
+    let arr = [];
+    let x = 1;
+    while (x <= 9) {
+        let y = x;
+        let innerArr = [x];
+        while (y < 9) {
+            y++;
+            let z = innerArr[innerArr.length - 1].toString();
+            let w = z + y.toString();
+            innerArr.push(w)
+        }
+        arr.push(innerArr);
+        x++;
+    }
+    console.log(arr);
+};
+getHundredFromOneToNine();
