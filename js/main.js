@@ -422,20 +422,82 @@ const largestPossNum = lst => {
 */
 
 const getHundredFromOneToNine = () => {
-    let arr = [];
-    let x = 1;
-    while (x <= 9) {
-        let y = x;
-        let innerArr = [x];
-        while (y < 9) {
-            y++;
-            let z = innerArr[innerArr.length - 1].toString();
-            let w = z + y.toString();
-            innerArr.push(w)
+    let string = '123456789';
+    let mainArr = []
+    for (let i = 1; i <= 9; i++) {
+        let str = string
+        let subStr = str.slice(0, i);
+        str = str.slice(i);
+        let arr = [Number(subStr)]
+        for (let x = 0; x < str.length; x++) {
+            arr.push(Number(str[x]))
         }
-        arr.push(innerArr);
-        x++;
+        mainArr.push(arr)
     }
-    console.log(arr);
+    
+    console.log(mainArr)
 };
-getHundredFromOneToNine();
+
+
+
+function LetterChanges(str) { 
+    let alphabet = 'abcdefghijklmnopqrstvuxyz';
+    let newStr = ''
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === 'z') {
+            newStr = newStr + 'A'
+        } else {
+            let index = alphabet.indexOf(str[i])
+            if (['a', 'e', 'i', 'o', 'u'].some(char => char === alphabet[index + 1])) {
+                let charr = alphabet[index + 1].toUpperCase()
+                newStr = newStr + charr
+            } else {
+                newStr = newStr + alphabet[index + 1]
+            }
+        }
+    }
+    return newStr;
+}
+
+function SimpleSymbols(str) { 
+    let alphabet = 'abcdefghijklmnopqrstvuxyz';
+    for (let i = 0; i < str.length; i++) {
+        if (alphabet.indexOf(str[i]) !== -1 && str[i - 1] === '+' && str[i + 1] === '+') {
+            rrr = 'true';
+        } else if (alphabet.indexOf(str[i]) !== -1 && str[i - 1] !== '+' && str[i + 1] === '+') {
+            return 'false'
+        } else if (alphabet.indexOf(str[i]) !== -1 && str[i - 1] === '+' && str[i + 1] !== '+') {
+            return 'false'
+        }
+    }
+    return rrr;  
+}
+
+function CheckNums(num1,num2) { 
+    if (num2 > num1) {
+        return 'true';
+    } else if (num2 === num1) {
+        return '-1';
+    } else {
+        return 'false'
+    }   
+}
+/*
+    Using the JavaScript language, have the function TimeConvert(num) take the num parameter being passed and return the number of hours and minutes the parameter converts to (ie. if num = 63 then the output should be 1:3). Separate the number of hours and minutes with a colon. 
+*/
+function TimeConvert(num) { 
+    let h = Math.floor(num / 60);
+    let m = num % 60;
+    return h + ':' + m;
+}
+/*
+    Using the JavaScript language, have the function AlphabetSoup(str) take the str string parameter being passed and return the string with the letters in alphabetical order (ie. hello becomes ehllo). Assume numbers and punctuation symbols will not be included in the string. 
+*/
+
+function AlphabetSoup(str) { 
+    let rrr = str.split('').sort().join('')
+  // code goes here  
+  return rrr; 
+         
+}
+console.log(AlphabetSoup('bsdafrg'))
