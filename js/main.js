@@ -704,4 +704,68 @@ const compress = str => {
     }
     return result;
 };
-console.log(compress('AAAAABBBBBCCCCCaaabbbeeeddAA'));
+/*
+    unique characters
+*/
+const uniqueCharacters = str => {
+    const obj = {}
+    for (let i = 0; i < str.length; i++) {
+        if (!obj[str[i]]) obj[str[i]] = 1;
+        else return false;
+    }
+    return true;
+}
+/*
+    implement a stack
+*/
+function Stack() { // ES 5
+    this.items = [];
+}
+
+Stack.prototype.isEmpty = function() {
+    return this.items.length === 0;
+};
+
+Stack.prototype.addItem = function(item) {
+    this.items.push(item);
+};
+
+Stack.prototype.removeItem = function() {
+    return this.items.pop();
+};
+
+Stack.prototype.peek = function() {
+    return this.items[this.items.length - 1];
+};
+
+Stack.prototype.size = function() {
+    return this.items.length;
+};
+
+class newStack { // es 6
+    constructor(items) {
+        this.items = []
+    }
+
+    isEmpty() {
+        return this.items.length === 0;
+    }
+
+    addItem(item) {
+        this.items.push(item);
+    }
+
+    removeItem() {
+        return this.items.pop();
+    }
+
+    peek() {
+        return this.items[this.items.length - 1];
+    }
+
+    size() {
+        return this.items.length;
+    }
+}
+
+let s = new newStack();
