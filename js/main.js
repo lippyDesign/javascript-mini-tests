@@ -500,4 +500,208 @@ function AlphabetSoup(str) {
   return rrr; 
          
 }
-console.log(AlphabetSoup('bsdafrg'))
+/*
+    Define a repeatify function on the String object. The function accepts an integer that specifies how many times the string has to be repeated. The function returns the string repeated the number of times specified.
+*/
+String.prototype.repeatify = String.prototype.repeatify || function(num) {
+    const x = this.slice()
+    let str = '';
+    for (let i = 0; i < num; i++) {
+        str = str + x;
+    }
+    return str;
+};
+/*
+    check if two strings are anagrams. 'public relations' and 'crap built on lies' are anograms
+*/
+const anagramCheck = (str1, str2) => {
+    str1 = str1.replace(/\s/g, '');
+    str2 = str2.replace(/\s/g, '');
+    const arr1 = str1.toLowerCase().split('');
+    const arr2 = str2.toLowerCase().split('');
+    let string1 = arr1.sort().join('');
+    let string2 = arr2.sort().join('');
+    if (string1 === string2) return true;
+    else return false;
+};
+/*
+    check if two strings are anagrams without using sort(). 'public relations' and 'crap built on lies' are anograms
+*/
+const anagramCheckTwo = (str1, str2) => {
+    str1 = str1.toLowerCase();
+    str1 = str1.replace(/\s/g, '');
+    str2 = str2.toLowerCase();
+    str2 = str2.replace(/\s/g, '');
+    if (str1.length !== str2.length) {
+        return false;
+    }
+    if (str1.length === 1 && str2.length === 1 && str1 === str2) {
+        return true;
+    }
+    if (str2.indexOf(str1[0]) !== -1) {
+        str2 = str2.replace(str1[0], '');
+        str1 = str1.substring(1, str1.length);
+        return anagramCheckTwo(str1, str2)
+    } else {
+        return false;
+    }
+};
+/*
+    check if two strings are anagrams by counting letters. 'public relations' and 'crap built on lies' are anograms
+*/
+const anagramCheck3 = (s1, s2) => {
+    s1 = s1.replace(/\s/g, '').toLowerCase();
+    s2 = s2.replace(/\s/g, '').toLowerCase();
+    const count = {};
+    for (let i = 0; i < s1.length; i++) {
+        const char = s1[i];
+        if (count[char]) {
+            count[char] += 1;
+        } else {
+            count[char] = 1;
+        }
+    }
+    for (let i = 0; i < s2.length; i++) {
+        const char = s2[i];
+        if (count[char]) {
+            count[char] -= 1;
+        } else {
+            count[char] = 1;
+        }
+    }
+    for (z in count) {
+        if (count[z]) return false;
+    }
+    return true;
+};
+
+/*
+    pair sum
+*/
+
+const pairSum = (arr, num) => {
+    const results = [];
+    const calc = (arr, num) => {
+        if (arr.length <= 1) {
+            return;
+        }
+        const firstNum = arr.shift();
+        const numNeeded = num - firstNum;
+        if (!arr.find(item => item === numNeeded)) {
+            return calc(arr, num);
+        } else {
+            results.push([firstNum, numNeeded]);
+            const index = arr.indexOf(numNeeded);
+            arr.splice(index, 1);
+        }
+        if (arr.length > 1) {
+            return calc(arr, num);
+        }
+        
+    };
+    calc(arr, num)
+    return results;
+};
+/*
+    find all missing numbers when given two arrays
+*/
+const finder = (arr1, arr2) => {
+    let check = arr1.length >= arr2.length ? arr1 : arr2;
+    let toBeChecked = arr1.length < arr2.length ? arr1 : arr2;
+    const results = [];
+    for (let i = 0; i < check.length; i++) {
+        if (toBeChecked.indexOf(check[i]) === -1) {
+            results.push(check[i]);
+        } 
+        else toBeChecked.splice(toBeChecked.indexOf(check[i]), 1);
+    }
+
+    return results;
+};
+
+const finderByCounting = (arr1, arr2) => {
+    let check = arr1.length >= arr2.length ? arr1 : arr2;
+    const result = {};
+    for (let i = 0; i < check.length; i ++) {
+        if (arr1[i]) {
+            if (result[arr1[i]]) {
+                result[arr1[i]] += 1;
+            } else {
+                result[arr1[i]] = 1;
+            }
+        }
+        if (arr2[i]) {
+            if (result[arr2[i]]) {
+                result[arr2[i]] -= 1;
+            } else {
+                result[arr2[i]] = 1;
+            }
+        }
+        if (result[arr2[i]] === 0) delete result[arr2[i]];
+    }
+
+    return result;
+};
+
+/*
+    sentence reversal
+*/
+const sentenceReversal = str => str.trim().split(" ").reverse().join(" ");
+
+const sentenceReversalLong = str => {
+    if (!str.length) return '';
+    const results = [];
+    let currentWord = '';
+    let stringToReturn = '';
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] !== ' ') {
+            currentWord += str[i];
+        } else {
+            if (currentWord.length > 0) {
+                results.push(currentWord);
+                currentWord = '';
+            }
+        }
+    }
+    if (currentWord.length > 0) {
+        results.push(currentWord);
+        currentWord = '';
+    }
+    while (results.length) {
+        const item = results.pop();
+        if (results.length > 0) {
+            stringToReturn = stringToReturn + item + ' ';
+        } else {
+            stringToReturn = stringToReturn + item;
+        }
+    }
+    return stringToReturn;
+};
+/*
+    compress a string ('AAAbbb') becomes 'A3b3
+*/
+const compress = str => {
+    if (!str.length) return 'Enter a valid string';
+    let temp = '';
+    let counter = 0;
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        if (!temp) {
+            temp += str[i];
+            counter += 1;
+        } else {
+            if (temp === str[i]) {
+                counter += 1;
+            } else {
+                result = result + temp + counter;
+                counter = 1;
+                temp = str[i]
+            }
+        }
+    }
+    if (counter) {
+        result = result + temp + counter;
+    }
+    return result;
+};
+console.log(compress('AAAAABBBBBCCCCCaaabbbeeeddAA'));
