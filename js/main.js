@@ -716,7 +716,7 @@ const uniqueCharacters = str => {
     return true;
 }
 /*
-    implement a stack
+    implement a stack (Last in First out - like a stack of books)
 */
 function Stack() { // ES 5
     this.items = [];
@@ -768,4 +768,91 @@ class newStack { // es 6
     }
 }
 
-let s = new newStack();
+/*
+    implement a Queue (first in, first out - like people in line)
+*/
+
+function Queue() { //es5
+    this.items = [];
+}
+Queue.prototype.size = function() {
+    return this.items.length;
+};
+Queue.prototype.isEmpty = function() {
+    return this.items.length === 0;
+};
+Queue.prototype.enqueue = function(item) {
+    this.items.push(item);
+};
+Queue.prototype.dequeue = function() {
+    return this.items.shift();
+};
+
+class NewQueue { //es6
+    constructor() {
+        this.items = [];
+    }
+    size() {
+        return this.items.length;
+    }
+    isEmpty() {
+        return this.items.length === 0;
+    }
+    enqueue(item) {
+        this.items.splice(0, 0, item)
+    }
+    dequeue() {
+        return this.items.pop();
+    }
+}
+
+/*
+    implement a Deque (can add and subtract from both ends);
+*/
+
+function Deque() { //es 5
+    this.items = [];
+}
+Deque.prototype.size = function() {
+    return this.items.length;
+};
+Deque.prototype.isEmpty = function() {
+    return this.items.length === 0;
+};
+Deque.prototype.addToFront = function(item) {
+    this.items.splice(0, 0, item);
+};
+Deque.prototype.addToRear = function(item) {
+    this.items.push(item);
+};
+Deque.prototype.removeFromFront = function() {
+    return this.items.shift();
+};
+Deque.prototype.removeFromRear = function() {
+    return this.items.pop();
+};
+
+class DequeES6 {
+    constructor(items) {
+        this.items = [];
+    }
+    size() {
+        return this.items.length;
+    }
+    isEmpty() {
+        return this.items.length === 0;
+    }
+    addToFront(item) {
+        this.items.splice(0, 0, item);
+    }
+    addToRear(item) {
+        this.items.push(item);
+    }
+    removeFromFront() {
+        return this.items.shift();
+    }
+    removeFromRear() {
+        return this.items.pop();
+    }
+}
+const d = new DequeES6();
