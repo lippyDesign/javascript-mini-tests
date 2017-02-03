@@ -855,4 +855,50 @@ class DequeES6 {
         return this.items.pop();
     }
 }
-const d = new DequeES6();
+/*
+    1) You are given a list of double airports, departure and destination, in an array of of tuples as input, for example:
+    [['oak','las'], ['jfk','mia'], ['hon','jfk'], ['mia', 'oak']].
+    Your task is to return an the array but reconfigure the tuples so that they form a continuous link from first departure airport to the last destination at the end of the array.
+    Should work for x number of tuples. Every input will have a chained answer, some may have same first departure and last destination.
+*/
+
+
+
+/*
+    Find the longest shared substring between two other strings.
+    For example given ('123abcdefgxyz', '2abcbcdefg12') the return should be 'bcdefg'
+*/
+const balancedParenthesese = str => {
+    let counter = 0;
+    let last = [];
+
+    for (let i = 0; i <str.length; i++) {
+        const char = str[i]
+        if (char === '{' || char === '(' || char ==='[') {
+            counter += 1;
+            last.push(char)
+        }
+        if (char === '}' || char === ')' || char ===']') {
+            counter -= 1;
+            if (char === '}') {
+                const lastChar = last[last.length - 1];
+                if (lastChar !== '{') return false
+                last.pop();
+            }
+            if (char === ']') {
+                const lastChar = last[last.length - 1];
+                if (lastChar !== '[') return false
+                last.pop();
+            }
+            if (char === ')') {
+                const lastChar = last[last.length - 1];
+                if (lastChar !== '(') return false
+                last.pop();
+            }
+        }
+    }
+    if (counter !== 0) return false;
+
+    return true;
+};
+console.log(balancedParenthesese('({[({[]})]}){{{}}}'))
