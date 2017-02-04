@@ -861,8 +861,29 @@ class DequeES6 {
     Your task is to return an the array but reconfigure the tuples so that they form a continuous link from first departure airport to the last destination at the end of the array.
     Should work for x number of tuples. Every input will have a chained answer, some may have same first departure and last destination.
 */
+const airports = arr => {
+    const newArr = arr.map(tuple => {
+        return {
+            next: null,
+            prev: null,
+            pointA: tuple[0],
+            pointB: tuple[1],
+            tuple
+        };
+    });
+    
+    const results = newArr.map(obj => {
+        obj.next = newArr.find(({ pointA }) => pointA === obj.pointB);
+        obj.prev = newArr.find(({ pointB }) => pointB === obj.pointA);
 
+        return obj
+    });
+    console.log(results)
 
+    const head = results.find(({prev}) => !prev)
+    console.log(head)
+}
+airports([['oak','las'], ['jfk','mia'], ['hon','jfk'], ['mia', 'oak']])
 
 /*
     Find the longest shared substring between two other strings.
