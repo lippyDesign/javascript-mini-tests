@@ -901,4 +901,26 @@ const balancedParenthesese = str => {
 
     return true;
 };
-console.log(balancedParenthesese('({[({[]})]}){{{}}}'))
+
+/*
+    implement a queue using two stacks
+*/
+class Queue2Stacks {
+    constructor() {
+        this.instack = [];
+        this.outstack = [];
+    }
+    enqueue(el) {
+        this.instack.push(el);
+    }
+    dequeue() {
+        if (this.outstack.length === 0) {
+            while (this.instack.length > 0) {
+                this.outstack.push(this.instack.pop())
+            }
+        }
+        return this.outstack.pop();
+    }
+}
+
+const q2s = new Queue2Stacks();
